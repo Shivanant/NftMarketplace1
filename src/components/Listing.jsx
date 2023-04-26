@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 const Listing= ({marketplace,nft,account})=>{
     const [listItems,setListItems]=useState([]);
+    const [loading, setLoading] = useState(true)
+
 
 
     const loadListedItem=async()=>{
@@ -30,22 +32,30 @@ const Listing= ({marketplace,nft,account})=>{
             }
         }
         setListItems(listItems);
+        setLoading(false);
 
     }
     useEffect(()=>{
         loadListedItem()
-    },[])
+    })
     return(
         <div>{
+
+            (loading)?<div className="loading"></div>:
             (listItems.length>0)?
         <div className="cards">
         {
             listItems.map((itm,idx)=>(
-              <div className="card">
-              <h2>{itm.image} </h2>
-              name={itm.name} 
-              description={itm.description}
-              key={idx} </div>
+                <div className="card"id={idx}  key={idx} >
+              <div className="image">
+                 <img src={itm.image} alt={itm.image} ></img>
+              </div>
+              <div className="information">
+              <h2>{itm.name} </h2>
+              <p>{itm.description}</p>
+              
+              </div>
+              </div>
                 
 
             ))
@@ -54,7 +64,7 @@ const Listing= ({marketplace,nft,account})=>{
         
         </div>
         :
-        <div> no item</div>
+        <div className="no-items"><h1>No Items Here</h1></div>
         }
         </div>
     )

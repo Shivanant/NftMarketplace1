@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 const Purchase =({marketplace,nft,account})=>{
     const [purchases,setPurchase]=useState([])
+    const [loading,setLoading]=useState(true);
     const loadPurchaseItem=async()=>{
         const filter= marketplace.filters.Bought(null,null,null,null,null,account);
         const result= await marketplace.queryFilter(filter)
@@ -13,30 +14,42 @@ const Purchase =({marketplace,nft,account})=>{
             let purchaseItem={
                 name:metadata.name,
                 description:metadata.description,
-                image:metadata.description
+                image:metadata.image
             }
             return purchaseItem
         }))
-        console.log("errer here")
+        
         setPurchase(purchases)
+        setLoading(false)
     }
 
 
     useEffect(()=>{
         loadPurchaseItem()
-    },[])
+    })
 
 
     return(
-
         <div>
-            {purchases.map((itm,id)=>(
-                <div key={id}>
-                    {itm.image}
-                </div>
-
+        {
+            (loading)?<div className="loading"></div>:
+            (purchases.length>0)?<div className="cards">
+            {
+                purchases.map((itm,idx)=>(
+                <div className="card" id={idx}  key={idx} >
+              <div className="image">
+                 <img src={itm.image} alt={itm.image}></img>
+              </div>
+              <div className="information">
+              <h2>{itm.name} </h2>
+              <p>{itm.description}</p>
+              
+              </div>
+              </div>
 
             ))}
+        </div>:<div className="no-items"><h1>No Items Here</h1></div>
+        }
         </div>
     )
 }

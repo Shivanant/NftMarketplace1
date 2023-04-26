@@ -3,7 +3,7 @@ import MarketplaceAbi from "./ContractData/Marketplace.json";
 import MarketplaceAddress from "./ContractData/Marketplace--address.json";
 import NFTAbi from "./ContractData/NFT.json";
 import NFTAddress from "./ContractData/NFT--address.json";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ethers } from "ethers";
 import Home from "./components/Home";
 import Create from "./components/Create";
@@ -27,10 +27,10 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     // Set signer
     const signer = provider.getSigner();
-    
-        window.ethereum.on("chainChanged", (chainId) => {
-          window.location.reload();
-        });
+
+    window.ethereum.on("chainChanged", (chainId) => {
+      window.location.reload();
+    });
 
 
     window.ethereum.on("accountsChanged", async function (accounts) {
@@ -38,30 +38,30 @@ function App() {
       await web3Handler();
     });
     loadContracts(signer);
+
   };
+
   const loadContracts = async (signer) => {
     // Get deployed copies of contracts
-    const marketplace = new ethers.Contract(
-      MarketplaceAddress.address,
-      MarketplaceAbi.abi,
-      signer
-    );
+    const marketplace = new ethers.Contract(MarketplaceAddress.address,MarketplaceAbi.abi,signer);
     setMarketplace(marketplace);
+
     const nft = new ethers.Contract(NFTAddress.address, NFTAbi.abi, signer);
     setNFT(nft);
     setLoading(false);
+    
   };
 
   return (
     <BrowserRouter>
-      <div className="App">
+      <div>
         <>
           <NAVIGATION web3Handler={web3Handler} account={account} />
         </>
         <div>
           {loading ? (
-            <div>
-              <p>Awaiting Metamask Connection...</p>
+            <div className="no-items">
+              <h1>Awaiting Metamask Connection...</h1>
             </div>
           ) : (
             <Routes>

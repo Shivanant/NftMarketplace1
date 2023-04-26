@@ -17,9 +17,6 @@ const client = create({
     },
 });
 
-
-
-
 const Create =({marketplace ,nft})=>{
     const [image,setImg]=useState('');
     const [name,setName]=useState('');
@@ -80,34 +77,34 @@ try{
     }
 
 
-
-
-
     return (
         <div className="create">
-
-        <label >
+        <div className="wrapper">
+         <div className="input-box" >
         <span>Upload image</span>
         <input type="file" onChange={uploadToIPFS}></input>
-        </label>
+        </div>
 
-        <label>
+        <div className="input-box">
         <span>Name</span>
         <input type="text" onChange={(e)=>{setName(e.target.value)}}></input>
-        </label>
+        </div>
 
-        <label>
+        <div className="input-box">
         <span>Descreption</span>
         <input type="text" onChange={(e)=>{setDescreption(e.target.value)}}></input>
-        </label>
+        </div>
         
 
-        <label>
+        <div className="input-box">
         <span>Price</span>
         <input type="number" onChange={(e)=>{setPrice(e.target.value)}}></input>
-        </label>
+        </div>
         
         <button onClick={createNft}>Submit</button>
+
+        </div>
+        
         </div>
     )
 }

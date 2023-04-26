@@ -49,7 +49,7 @@ const Home=({marketplace,nft})=>{
     },[]);
     return(<div>
      {
-       
+      (loading)?<div className="loading"></div>:       
        (items.length>0)?
         <div className="cards">
         {
@@ -66,7 +66,7 @@ const Home=({marketplace,nft})=>{
               </div>
               <button onClick={()=>{
                 buyMarketplaceItem(itm)
-              }}>{ethers.utils.formatEther(itm.totalPrice)}</button>
+              }}><i class="fa-brands fa-ethereum"></i>  {ethers.utils.formatEther(itm.totalPrice)}</button>
               </div>
                 
 
@@ -76,7 +76,7 @@ const Home=({marketplace,nft})=>{
         
         </div>
         :
-        <div> no item</div>
+        <div className="no-items" ><h1>No Items Here</h1> </div>
     }
     </div>
       
