@@ -66,7 +66,7 @@ const Home=({marketplace,nft})=>{
               </div>
               <button onClick={()=>{
                 buyMarketplaceItem(itm)
-              }}><i class="fa-brands fa-ethereum"></i>  {ethers.utils.formatEther(itm.totalPrice)}</button>
+              }}><i className="fa-brands fa-ethereum"></i>  {ethers.utils.formatEther(itm.totalPrice)}</button>
               </div>
                 
 
